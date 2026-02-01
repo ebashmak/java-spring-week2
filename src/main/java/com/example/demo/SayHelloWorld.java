@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 @RestController
 public class SayHelloWorld {
@@ -88,5 +88,73 @@ public class SayHelloWorld {
 
         }
         return fib.toString();
+    }
+    @GetMapping("/stringMethods")
+    public String stringMethods(@RequestParam(value="inputText", defaultValue = "Hello Java!") String text){
+
+        String s = text;
+        Integer index = s.indexOf("Java");
+        String s1 = "Hi Katya!";
+        String s2 = "Hello java!";
+        String s3 = "";
+        String s4 = "   String     ";
+
+        return
+                index.toString() +
+                "<br>" + s.equalsIgnoreCase(s1) +
+                "<br>" + s.equalsIgnoreCase(s2) +
+                "<br>" + s.contains("Hello") +
+                "<br>" + (s.startsWith("H") && s.endsWith("!")) +
+                "<br>" + s3.isEmpty() +
+                "<br>" + s.toLowerCase() +
+                "<br>" + s.toUpperCase() +
+                "<br>" + s4.trim() +
+                "<br>" + String.valueOf(125 + 1) +
+                "<br>" + Arrays.toString(s1.split(" ")) +
+                "<br>" + String.join("+", "Hello", "Katya");
+    }
+
+    @GetMapping("/list")
+    public List<String> getFruits() {
+        List<String> fruits = new ArrayList<>();
+        fruits.add("banana");
+        fruits.add("apple");
+        return fruits;
+    }
+
+    @GetMapping("/map")
+    public Map<String, Integer> getStock(){
+        Map<String, Integer> stock = new HashMap<>();
+        stock.put("iPhone", 100);
+        stock.put("MacBook", 150);
+        return stock;
+    }
+//
+//    @PostMapping("/submit")
+//    public String handlePost(@RequestBody String body) {
+//        return "Сервер получил через POST: " + body;
+//    }
+//
+//    public static class MyData {
+//        public String message;
+//        public int priority;
+//    }
+//
+//    @PostMapping("/json")
+//    public String handleJson(@RequestBody MyData data) {
+//        return "Сервер успешно десериализовал JSON!" +
+//                "<br>Сообщение: " + data.message +
+//                "<br>Приоритет: " + data.priority;
+//    }
+
+    public static class Order{
+        public String dish;
+        public int quantity;
+        public String comment;
+    }
+
+    @PostMapping("/order")
+    public String createOrder(@RequestBody Order order){
+        return "Заказ принят: " + order.dish + " x" + order.quantity + " " + order.comment;
     }
 }
