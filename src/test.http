@@ -11,3 +11,19 @@ Content-Type: application/json
 "quantity": 2,
   "comment": "побыстрее"
 }
+
+
+###
+POST http://localhost:8081/add-student
+Content-Type: application/json
+
+{ "name": "Katya", "grade": 5 }
+
+###
+POST http://localhost:8081/add-student
+Content-Type: application/json
+
+{ "name": "Ivan", "grade": 4 }
+
+###
+GET http://localhost:8081/show-all

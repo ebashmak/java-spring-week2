@@ -129,23 +129,23 @@ public class SayHelloWorld {
         stock.put("MacBook", 150);
         return stock;
     }
-//
-//    @PostMapping("/submit")
-//    public String handlePost(@RequestBody String body) {
-//        return "Сервер получил через POST: " + body;
-//    }
-//
-//    public static class MyData {
-//        public String message;
-//        public int priority;
-//    }
-//
-//    @PostMapping("/json")
-//    public String handleJson(@RequestBody MyData data) {
-//        return "Сервер успешно десериализовал JSON!" +
-//                "<br>Сообщение: " + data.message +
-//                "<br>Приоритет: " + data.priority;
-//    }
+
+    @PostMapping("/submit")
+    public String handlePost(@RequestBody String body) {
+        return "Сервер получил через POST: " + body;
+    }
+
+    public static class MyData {
+        public String message;
+        public int priority;
+    }
+
+    @PostMapping("/json")
+    public String handleJson(@RequestBody MyData data) {
+        return "Сервер успешно десериализовал JSON!" +
+                "<br>Сообщение: " + data.message +
+                "<br>Приоритет: " + data.priority;
+    }
 
     public static class Order{
         public String dish;
@@ -156,5 +156,36 @@ public class SayHelloWorld {
     @PostMapping("/order")
     public String createOrder(@RequestBody Order order){
         return "Заказ принят: " + order.dish + " x" + order.quantity + " " + order.comment;
+    }
+
+
+    public class myCollections{
+        private List<String> visitors = new ArrayList<>();
+        private Map<String, Integer> studentGrades = new HashMap<>();
+
+        @PostMapping("/add-visitors")
+        public String addVisitor(@RequestBody String name){
+            visitors.add(name);
+            return "Поситетель" + name + " добавлен" + "<br>" + "Всего в списке: " + visitors.size();
+        }
+
+        public class Student{
+            public String name;
+            public int grade;
+        }
+
+        @PostMapping("/add-students")
+        public String addStudent(@RequestBody Student student){
+            studentGrades.put(student.name, student.grade);
+            return "Студент " + student.name + " сохранен с оценкой " + student.grade;
+        }
+
+        @GetMapping("/show-all")
+        public Map<String, Object> showAll(){
+            Map<String, Object> allData = new HashMap<>();
+            allData.put("visitorsList", visitors);
+            allData.put("gradesMap", studentGrades);
+            return allData;
+        }
     }
 }
