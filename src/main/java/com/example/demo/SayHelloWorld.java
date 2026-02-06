@@ -11,6 +11,7 @@ public class SayHelloWorld {
     public String hello(@RequestParam(value="name", defaultValue="World") String name){
         return String.format("Hello, %s!", name);
     }
+    //http://localhost:8081/hello
 
     @GetMapping("/reverse")
     public String reverse(@RequestParam(value="inputText", defaultValue = "abc") String text){
@@ -130,22 +131,8 @@ public class SayHelloWorld {
         return stock;
     }
 
-    @PostMapping("/submit")
-    public String handlePost(@RequestBody String body) {
-        return "Сервер получил через POST: " + body;
-    }
+    // POST
 
-    public static class MyData {
-        public String message;
-        public int priority;
-    }
-
-    @PostMapping("/json")
-    public String handleJson(@RequestBody MyData data) {
-        return "Сервер успешно десериализовал JSON!" +
-                "<br>Сообщение: " + data.message +
-                "<br>Приоритет: " + data.priority;
-    }
 
     public static class Order{
         public String dish;
